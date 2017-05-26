@@ -103,9 +103,9 @@ walt_dec_cumulative_runnable_avg(struct rq *rq,
 		fixup_cum_window_demand(rq, -(s64)p->ravg.demand);
 }
 
-void
-walt_fixup_cumulative_runnable_avg(struct rq *rq,
-				   struct task_struct *p, u64 new_task_load)
+static void
+fixup_cumulative_runnable_avg(struct rq *rq,
+			      struct task_struct *p, u64 new_task_load)
 {
 	s64 task_load_delta = (s64)new_task_load - task_load(p);
 
