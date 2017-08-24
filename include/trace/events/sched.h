@@ -1237,7 +1237,7 @@ TRACE_EVENT(walt_update_task_ravg,
 	),
 
 	TP_printk("wc %llu ws %llu delta %llu event %d cpu %d cur_pid %d task %d (%s) ms %llu delta %llu demand %u sum %u irqtime %llu"
-		" cs %llu ps %llu util %llu cur_window %u prev_window %u active_wins %u"
+		" cs %llu ps %llu util %lu cur_window %u prev_window %u active_wins %u"
 		, __entry->wallclock, __entry->win_start, __entry->delta,
 		__entry->evt, __entry->cpu, __entry->cur_pid,
 		__entry->pid, __entry->comm, __entry->mark_start,
