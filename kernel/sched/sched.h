@@ -1893,7 +1893,9 @@ static inline unsigned long __cpu_util(int cpu, int delta)
 		util = max_t(unsigned long, util, READ_ONCE(cfs_rq->avg.util_est.enqueued));
 	
 	util += cpu_rq(cpu)->rt.avg.util_avg;
-	
+#ifdef CONFIG_SCHED_WALT
+util_walt:
+#endif
 	delta += util;
 	if (delta < 0)
 		return 0;
@@ -1911,6 +1913,14 @@ static inline unsigned long cpu_util(int cpu)
 #define capacity_max SCHED_CAPACITY_SCALE
 extern unsigned int capacity_margin;
 extern struct static_key __sched_freq;
+	if (sched_feat(UTIL_EST))
+		util = max_t(unsigned long, util, 
+				READ_ONCE(cpu_rq(cpu)->cfs.avg.util_est.enqueued));
+	
+	util += cpu_rq(cpu)->rt.avg.util_avg;
+#ifdef CONFIG_SCHED_WALT
+util_walt:
+#endif
 
 static inline bool sched_freq(void)
 {
