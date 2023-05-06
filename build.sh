@@ -23,17 +23,17 @@ STAR2AOSPDEFCONFIG="exynos9810-star2lte_defconfig"
 CROWNAOSPDEFCONFIG="exynos9810-crownlte_defconfig"
 
 # Build dirs
-KERNEL_DIR="/home/yarpiin/Android/Kernel/Samsung/White-Wolf-Uni-OneUI"
+KERNEL_DIR="$HOME/kernel/kernel_samsung_exynos9810"
 RESOURCE_DIR="$KERNEL_DIR/.."
-KERNELFLASHER_DIR="/home/yarpiin/Android/Kernel/Samsung/Kernel_Flasher"
-TOOLCHAIN_DIR="/home/yarpiin/Android/Toolchains"
+KERNELFLASHER_DIR="$HOME/kernel/Kernel_Flasher"
+TOOLCHAIN_DIR="$HOME/kernel/tc/"
 
 # Kernel Details
-BASE_YARPIIN_VER="WHITE.WOLF.ONEUI.UNI"
-BASE_AOSP_YARPIIN_VER="WHITE.WOLF.AOSP.UNI"
+BASE_MARU_VER="MARU.ONEUI.UNI"
+BASE_AOSP_MARU_VER="MARU.AOSP.UNI"
 VER=".SE.003"
-YARPIIN_VER="$BASE_YARPIIN_VER$VER"
-YARPIIN_AOSP_VER="$BASE_AOSP_YARPIIN_VER$VER"
+MARU_VER="$BASE_MARU_VER$VER"
+MARU_AOSP_VER="$BASE_AOSP_MARU_VER$VER"
 STAR_VER="S9."
 STAR2_VER="S9+."
 CROWN_VER="N9."
@@ -41,31 +41,28 @@ CROWN_VER="N9."
 # Vars
 export ARCH=arm64
 export SUBARCH=arm64
-export KBUILD_BUILD_USER=yarpiin
-export KBUILD_BUILD_HOST=kernel
+export KBUILD_BUILD_USER=maru
+export KBUILD_BUILD_HOST=kernelbuildmachine
 
 
 # Image dirs
-ZIP_MOVE="/home/yarpiin/Android/Kernel/Zip"
+ZIP_MOVE="/home/MARU/Android/Kernel/Zip"
 ZIMAGE_DIR="$KERNEL_DIR/out/arch/arm64/boot"
 
 # Functions
 function clean_all {
-		if [ -f "$MODULES_DIR/*.ko" ]; then
-			rm `echo $MODULES_DIR"/*.ko"`
-		fi
 		cd $KERNEL_DIR
 		echo
 		make clean && make mrproper
-        rm -rf out/
+        	rm -rf out/
 }
 
 function make_star_kernel {
 		echo
-        export LOCALVERSION=-`echo $STAR_VER$YARPIIN_VER`
+        export LOCALVERSION=-`echo $STAR_VER$MARU_VER`
         make O=out ARCH=arm64 $STARDEFCONFIG
 
-        PATH="/home/yarpiin/Android/Toolchains/google-clang-sammy/bin:/home/yarpiin/Android/Toolchains/google-gcc/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -78,10 +75,10 @@ function make_star_kernel {
 
 function make_star_aosp_kernel {
 		echo
-        export LOCALVERSION=-`echo $STAR_VER$YARPIIN_AOSP_VER`
+        export LOCALVERSION=-`echo $STAR_VER$MARU_AOSP_VER`
         make O=out ARCH=arm64 $STARAOSPDEFCONFIG
 
-        PATH="/home/yarpiin/Android/Toolchains/google-clang-sammy/bin:/home/yarpiin/Android/Toolchains/google-gcc/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -94,10 +91,10 @@ function make_star_aosp_kernel {
 
 function make_star2_kernel {
 		echo
-        export LOCALVERSION=-`echo $STAR2_VER$YARPIIN_VER`
+        export LOCALVERSION=-`echo $STAR2_VER$MARU_VER`
         make O=out ARCH=arm64 $STAR2DEFCONFIG
 
-        PATH="/home/yarpiin/Android/Toolchains/google-clang-sammy/bin:/home/yarpiin/Android/Toolchains/google-gcc/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang10/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -110,10 +107,10 @@ function make_star2_kernel {
 
 function make_star2_aosp_kernel {
 		echo
-        export LOCALVERSION=-`echo $STAR2_VER$YARPIIN_AOSP_VER`
+        export LOCALVERSION=-`echo $STAR2_VER$MARU_AOSP_VER`
         make O=out ARCH=arm64 $STAR2AOSPDEFCONFIG
 
-        PATH="/home/yarpiin/Android/Toolchains/google-clang-sammy/bin:/home/yarpiin/Android/Toolchains/google-gcc/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -126,10 +123,10 @@ function make_star2_aosp_kernel {
 
 function make_crown_kernel {
 		echo
-        export LOCALVERSION=-`echo $CROWN_VER$YARPIIN_VER`
+        export LOCALVERSION=-`echo $CROWN_VER$MARU_VER`
         make O=out ARCH=arm64 $CROWNDEFCONFIG
 
-        PATH="/home/yarpiin/Android/Toolchains/google-clang-sammy/bin:/home/yarpiin/Android/Toolchains/google-gcc/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -142,10 +139,10 @@ function make_crown_kernel {
 
 function make_crown_aosp_kernel {
 		echo
-        export LOCALVERSION=-`echo $CROWN_VER$YARPIIN_AOSP_VER`
+        export LOCALVERSION=-`echo $CROWN_VER$MARU_AOSP_VER`
         make O=out ARCH=arm64 $CROWNAOSPDEFCONFIG
 
-        PATH="/home/yarpiin/Android/Toolchains/google-clang-sammy/bin:/home/yarpiin/Android/Toolchains/google-gcc/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -158,32 +155,32 @@ function make_crown_aosp_kernel {
 
 function make_zip {
 		cd $KERNELFLASHER_DIR
-		zip -r9 `echo $YARPIIN_VER`.zip *
-		mv  `echo $YARPIIN_VER`.zip $ZIP_MOVE
+		zip -r9 `echo $MARU_VER`.zip *
+		mv  `echo $MARU_VER`.zip $ZIP_MOVE
 		cd $KERNEL_DIR
 }
 
 function make_aosp_zip {
 		cd $KERNELFLASHER_DIR
-		zip -r9 `echo $YARPIIN_AOSP_VER`.zip *
-		mv  `echo $YARPIIN_AOSP_VER`.zip $ZIP_MOVE
+		zip -r9 `echo $MARU_AOSP_VER`.zip *
+		mv  `echo $MARU_AOSP_VER`.zip $ZIP_MOVE
 		cd $KERNEL_DIR
 }
 DATE_START=$(date +"%s")
 
 echo -e "${green}"
-echo "YARPIIN Kernel Creation Script:"
+echo "MARU Kernel Creation Script:"
 echo
 
 echo "---------------"
 echo "Kernel Version:"
 echo "---------------"
 
-echo -e "${red}"; echo -e "${blink_red}"; echo "$YARPIIN_VER"; echo -e "${restore}";
+echo -e "${red}"; echo -e "${blink_red}"; echo "$MARU_VER"; echo -e "${restore}";
 
 echo -e "${green}"
 echo "-----------------"
-echo "Making YARPIIN Kernel:"
+echo "Making MARU Kernel:"
 echo "-----------------"
 echo -e "${restore}"
 
