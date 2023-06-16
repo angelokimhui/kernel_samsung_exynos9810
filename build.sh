@@ -62,7 +62,7 @@ function make_star_kernel {
         export LOCALVERSION=-`echo $STAR_VER$MARU_VER`
         make O=out ARCH=arm64 $STARDEFCONFIG
 
-        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang10/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -78,7 +78,7 @@ function make_star_aosp_kernel {
         export LOCALVERSION=-`echo $STAR_VER$MARU_AOSP_VER`
         make O=out ARCH=arm64 $STARAOSPDEFCONFIG
 
-        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang10/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -94,7 +94,7 @@ function make_star2_kernel {
         export LOCALVERSION=-`echo $STAR2_VER$MARU_VER`
         make O=out ARCH=arm64 $STAR2DEFCONFIG
 
-        PATH="$HOME/kernel/tc/clang10/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang1010/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -110,7 +110,7 @@ function make_star2_aosp_kernel {
         export LOCALVERSION=-`echo $STAR2_VER$MARU_AOSP_VER`
         make O=out ARCH=arm64 $STAR2AOSPDEFCONFIG
 
-        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang10/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -126,7 +126,7 @@ function make_crown_kernel {
         export LOCALVERSION=-`echo $CROWN_VER$MARU_VER`
         make O=out ARCH=arm64 $CROWNDEFCONFIG
 
-        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang10/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -142,7 +142,7 @@ function make_crown_aosp_kernel {
         export LOCALVERSION=-`echo $CROWN_VER$MARU_AOSP_VER`
         make O=out ARCH=arm64 $CROWNAOSPDEFCONFIG
 
-        PATH="$HOME/kernel/tc/clang/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
+        PATH="$HOME/kernel/tc/clang10/bin:$HOME/kernel/tc/aarch64-linux-android-4.9/bin:${PATH}" \
         make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC=clang \
@@ -223,91 +223,6 @@ case "$dchoice" in
 		;;
 esac
 done
-
-echo
-
-while read -p "Do you want to clean stuffs (y/n)? " cchoice
-do
-case "$cchoice" in
-	y|Y )
-		clean_all
-		echo
-		echo "All Cleaned now."
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
-echo
-
-while read -p "Do you want to build G960 kernel (y/n)? " dchoice
-do
-case "$dchoice" in
-	y|Y)
-		make_star_kernel
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
-echo
-
-while read -p "Do you want to clean stuffs (y/n)? " cchoice
-do
-case "$cchoice" in
-	y|Y )
-		clean_all
-		echo
-		echo "All Cleaned now."
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
-echo
-
-while read -p "Do you want to build N960 kernel (y/n)? " dchoice
-do
-case "$dchoice" in
-	y|Y)
-		make_crown_kernel
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
 echo
 
 while read -p "Do you want to zip kernel (y/n)? " dchoice
@@ -328,30 +243,6 @@ case "$dchoice" in
 esac
 done
 
-echo
-
-while read -p "Do you want to clean stuffs (y/n)? " cchoice
-do
-case "$cchoice" in
-	y|Y )
-		clean_all
-		echo
-		echo "All Cleaned now."
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
-echo
-
 while read -p "Do you want to build AOSP G965 kernel (y/n)? " dchoice
 do
 case "$dchoice" in
@@ -369,92 +260,6 @@ case "$dchoice" in
 		;;
 esac
 done
-
-echo
-
-while read -p "Do you want to clean stuffs (y/n)? " cchoice
-do
-case "$cchoice" in
-	y|Y )
-		clean_all
-		echo
-		echo "All Cleaned now."
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
-echo
-
-while read -p "Do you want to build AOSP G960 kernel (y/n)? " dchoice
-do
-case "$dchoice" in
-	y|Y)
-		make_star_aosp_kernel
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
-echo
-
-while read -p "Do you want to clean stuffs (y/n)? " cchoice
-do
-case "$cchoice" in
-	y|Y )
-		clean_all
-		echo
-		echo "All Cleaned now."
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
-echo
-
-while read -p "Do you want to build AOSP N960 kernel (y/n)? " dchoice
-do
-case "$dchoice" in
-	y|Y)
-		make_crown_aosp_kernel
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
-
-echo
 
 while read -p "Do you want to zip kernel (y/n)? " dchoice
 do
