@@ -117,20 +117,6 @@ walt_fixup_cumulative_runnable_avg(struct rq *rq,
 	fixup_cum_window_demand(rq, task_load_delta);
 }
 
-static void
-fixup_cumulative_runnable_avg(struct rq *rq,
-			      struct task_struct *p, u64 new_task_load)
-{
-	s64 task_load_delta = (s64)new_task_load - task_load(p);
-
-	rq->cumulative_runnable_avg += task_load_delta;
-	if ((s64)rq->cumulative_runnable_avg < 0)
-		panic("cra less than zero: tld: %lld, task_load(p) = %u\n",
-			task_load_delta, task_load(p));
-
-	fixup_cum_window_demand(rq, task_load_delta);
-}
-
 u64 walt_ktime_clock(void)
 {
 	if (unlikely(walt_ktime_suspended))
@@ -634,7 +620,7 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	 */
 	if (!task_has_dl_policy(p) || !p->dl.dl_throttled) {
 		if (task_on_rq_queued(p))
-			fixup_cumulative_runnable_avg(rq, p, demand);
+			walt_fixup_cumulative_runnable_avg(rq, p, demand);
 		else if (rq->curr == p)
 			fixup_cum_window_demand(rq, demand);
 	}
