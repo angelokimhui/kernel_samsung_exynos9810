@@ -5851,8 +5851,6 @@ static unsigned long group_max_util(struct energy_env *eenv)
 	return max_util;
 }
 
-static int cpu_util_wake(int cpu, struct task_struct *p);
-
 /*
  * group_norm_util() returns the approximated group util relative to it's
  * current capacity (busy ratio), in the range [0..SCHED_LOAD_SCALE], for use
