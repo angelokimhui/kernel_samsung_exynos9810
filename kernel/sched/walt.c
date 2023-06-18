@@ -43,24 +43,16 @@ static __read_mostly unsigned int walt_io_is_busy = 0;
 unsigned int sysctl_sched_walt_init_task_load_pct = 15;
 
 /* 1 -> use PELT based load stats, 0 -> use window-based load stats */
-unsigned int __read_mostly walt_disabled = 0;
+bool __read_mostly walt_disabled = false;
 
-/* Window size (in ns) */
-__read_mostly unsigned int walt_ravg_window = 20000000;
-
-/* Min window size (in ns) = 10ms */
-#ifdef CONFIG_HZ_300
 /*
- * Tick interval becomes to 3333333 due to
- * rounding error when HZ=300.
+ * Window size (in ns). Adjust for the tick size so that the window
+ * rollover occurs just before the tick boundary.
  */
-#define MIN_SCHED_RAVG_WINDOW (3333333 * 6)
-#else
-#define MIN_SCHED_RAVG_WINDOW 10000000
-#endif
-
-/* Max window size (in ns) = 1s */
-#define MAX_SCHED_RAVG_WINDOW 1000000000
+__read_mostly unsigned int walt_ravg_window =
+					    (20000000 / TICK_NSEC) * TICK_NSEC;
+#define MIN_SCHED_RAVG_WINDOW ((10000000 / TICK_NSEC) * TICK_NSEC)
+#define MAX_SCHED_RAVG_WINDOW ((1000000000 / TICK_NSEC) * TICK_NSEC)
 
 static unsigned int sync_cpu;
 static ktime_t ktime_last;
