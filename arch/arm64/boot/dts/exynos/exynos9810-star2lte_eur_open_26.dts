@@ -10407,6 +10407,7 @@
 			cal-id = <0xb040002>;
 			dm-type = <0x0>;
 			min-freq = <0x6f158>;
+			max-freq = <0x1b5fd0>;
 			pm_qos-min-class = <0x3>;
 			pm_qos-max-class = <0x4>;
 			#cooling-cells = <0x2>;
@@ -10436,8 +10437,8 @@
 			cal-id = <0xb040003>;
 			dm-type = <0x1>;
 			min-freq = <0x9eb10>;
-			max-freq = <0x1b5fd0>;
-			policy-max = <0x1b5fd0>;
+			max-freq = <0x294280>;
+			policy-max = <0x294280>;
 			pm_qos-min-class = <0x5>;
 			pm_qos-max-class = <0x6>;
 			pm_qos-booting = <0x1b5fd0>;
