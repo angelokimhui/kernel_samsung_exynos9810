@@ -1114,9 +1114,9 @@ static int __init exynos_hpgov_parse_dt(void)
 	exynos_hpgov.maxfreq_table[SINGLE] = max_freq;
 
 	if (arg_overclock == 1) {
-		exynos_hpgov.maxfreq_table[DUAL] = 1924000;
-		exynos_hpgov.maxfreq_table[TRIPLE] = 1924000;
-		exynos_hpgov.maxfreq_table[QUAD] = 1924000;
+		exynos_hpgov.maxfreq_table[DUAL] = 1794000;
+		exynos_hpgov.maxfreq_table[TRIPLE] = 1794000;
+		exynos_hpgov.maxfreq_table[QUAD] = 1794000;
 		exynos_hpgov.maxfreq_table[DISABLE] = max_freq;
 
 	} else if (arg_overclock == 2) {
